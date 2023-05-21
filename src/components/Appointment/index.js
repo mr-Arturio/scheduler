@@ -8,6 +8,19 @@ import Show from "./Show";
 export default function Appointment(props) {
 
   return (
-    <article className="appointment"></article>
+    <article className="appointment">
+<Header time={props.time} />
+{props.interview ? (
+<Show 
+  student={props.interview.student}
+  interviewer={props.interview.interviewer}
+  // onEdit={action('onEdit')}
+  // onDelete={action('onDelete')}
+/> 
+) : ( 
+<Empty />
+)}
+
+    </article>
   );
 }
