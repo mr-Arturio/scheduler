@@ -4,7 +4,7 @@ import DayList from "./DayList";
 import "components/Application.scss";
 import Appointment from "./Appointment";
 import axios from "axios";
-
+import getAppointmentsForDay from 'helpers/selectors';
 
 export default function Application(props) {
   //Set up the initial state
@@ -14,26 +14,28 @@ export default function Application(props) {
     appointments: {}
   });
 
-  const dailyAppointments = [];
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
 
   const setDay = (day) => {
     setState(prevState => ({ ...prevState, day }));
   };
 
-  const setDays = (days) => {
-    setState(prevState => ({ ...prevState, days }));
-  };
-
 
   // hook to fetch data from the server
   useEffect(() => {
-    axios.get('/api/days') // Make the GET request to your API server
-      .then(response => {
-        setDays(response.data); // Set the days state with the response data
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    Promise.all([
+      axios.get('/api/days'), // Make the GET request to your API server
+      axios.get('/api/appointments')
+    ]).then((all) => {
+      const [daysResponse, appointmentsResponse] = all; // Destructure the responses
+      setState(prev => ({
+        ...prev,
+        days: daysResponse.data, // Access the response data for days
+        appointments: appointmentsResponse.data // Access the response data for appointments
+      }));
+    }).catch(error => {
+      console.log(error);
+    });
   }, []);
 
 
