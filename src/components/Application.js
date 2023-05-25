@@ -6,6 +6,7 @@ import Appointment from "./Appointment";
 import axios from "axios";
 import { getAppointmentsForDay, getInterview } from 'helpers/selectors';
 
+
 export default function Application(props) {
   //Set up the initial state
   const [state, setState] = useState({
@@ -27,7 +28,7 @@ export default function Application(props) {
     Promise.all([
       axios.get('/api/days'), // Make the GET request to your API server
       axios.get('/api/appointments'),
-      axios.get('api/interviewers')
+      axios.get('/api/interviewers')
     ]).then((all) => {
       const [daysResponse, appointmentsResponse,  interviewersResponse] = all; // Destructure the responses
       setState(prev => ({
