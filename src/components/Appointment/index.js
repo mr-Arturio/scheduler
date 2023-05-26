@@ -5,7 +5,6 @@ import Header from "./Header";
 import Empty from "./Empty";
 import Show from "./Show";
 import Form from "./Form";
-import Status from "./Status";
 import useVisualMode from "hooks/useVisualMode";
 
 export default function Appointment(props) {
@@ -29,8 +28,8 @@ export default function Appointment(props) {
       )}
       {mode === CREATE && (
         <Form
-        interviewers={[]} 
-        onSave={() => {}}
+        interviewers={[props.interviewers]} 
+        onSave={save}
         onCancel={() => back()}
         />
       )} 
