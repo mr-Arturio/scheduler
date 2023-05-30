@@ -18,11 +18,12 @@ function cancel() {
   props.onCancel();
 }
 
-
+console.log(props.interviewers);
 // function onSubmit(event) {
 //   event.preventDefault();
 //   props.onSave(student, interviewer); // Call the onSave prop with the captured values
 // }
+console.log('student', student);
 
   return (
     <main className="appointment__card appointment__card--create">

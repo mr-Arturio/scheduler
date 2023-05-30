@@ -22,7 +22,28 @@ export default function Application(props) {
 
   function bookInterview(id, interview) {
     console.log(id, interview);
-  }
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    
+    return axios
+    .put(`/api/appointments/${id}`, { interview }) // Make a PUT request to update the appointment
+    .then(() => {
+      setState({
+        ...state,
+        appointments
+      });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+}
 
   
 
@@ -37,7 +58,8 @@ export default function Application(props) {
       axios.get('/api/days'), // Make the GET request to your API server
       axios.get('/api/appointments'),
       axios.get('/api/interviewers')
-    ]).then((all) => {
+    ])
+    .then((all) => {
       const [daysResponse, appointmentsResponse,  interviewersResponse] = all; // Destructure the responses
       setState(prev => ({
         ...prev,
