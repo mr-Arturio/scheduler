@@ -18,6 +18,12 @@ function cancel() {
   props.onCancel();
 }
 
+
+// function onSubmit(event) {
+//   event.preventDefault();
+//   props.onSave(student, interviewer); // Call the onSave prop with the captured values
+// }
+
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
@@ -40,7 +46,7 @@ function cancel() {
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button danger onClick={cancel}>Cancel</Button>
-          <Button confirm onClick={props.onSave}>Save</Button>
+          <Button confirm onClick={() => props.onSave(student, interviewer)}>Save</Button>
         </section>
       </section>
     </main>

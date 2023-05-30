@@ -20,10 +20,14 @@ export default function Application(props) {
     interviewers: {}
   });
 
- 
+  function bookInterview(id, interview) {
+    console.log(id, interview);
+  }
+
+  
 
   const setDay = (day) => {
-    setState(prevState => ({ ...prevState, day }));
+    setState(prev => ({ ...prev, day }));
   };
 
 
@@ -60,6 +64,7 @@ const interviewers = getInterviewersForDay(state, state.day);
         time={appointment.time}
         interview={interview}
         interviewers={interviewers}
+        bookInterview={bookInterview}
       />
     );
   });
