@@ -41,7 +41,7 @@ export default function Application(props) {
       });
     })
     .catch(error => {
-      console.log('Something seems wrong');
+      throw Error;
     });
 }
 
@@ -65,7 +65,7 @@ function cancelInterview(id){
     });
   })
   .catch(error => {
-    console.log("Failed to delete!");
+    throw Error;
   });
 }
   
