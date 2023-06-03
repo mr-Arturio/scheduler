@@ -55,11 +55,10 @@ export default function Form(props) {
           </Button>
         </section>
       </section>
-      {error && (
-        <p className="appointment__validation">
-          Name and interviewer selection are required.
-        </p>
-      )}
+      {error && 
+      <p className="appointment__validation">
+        Name and interviewer selection are required.
+        </p>}
     </main>
   );
 }
