@@ -1,119 +1,35 @@
 //Import dependencies and components
-import React, { useState, useEffect } from "react";
+import React from "react";
 import DayList from "./DayList";
 import "components/Application.scss";
 import Appointment from "./Appointment";
-import axios from "axios";
-import { 
-  getAppointmentsForDay, 
-  getInterview, 
-  getInterviewersForDay
-} from 'helpers/selectors';
-
+import {
+  getAppointmentsForDay,
+  getInterview,
+  getInterviewersForDay,
+} from "helpers/selectors";
+import useApplicationData from "hooks/useApplicationData";
 
 export default function Application(props) {
-  //Set up the initial state
-  const [state, setState] = useState({
-    day: 'Monday',
-    days: [],
-    appointments: {},
-    interviewers: {}
-  });
+   const { state, setDay, bookInterview, cancelInterview } =
+    useApplicationData();
 
-  function bookInterview(id, interview) {
-    console.log(id, interview);
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
+  const interviewers = getInterviewersForDay(state, state.day);
 
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-    
-    return axios
-    .put(`/api/appointments/${id}`, { interview }) // Make a PUT request to update the appointment
-    .then(() => {
-      setState({
-        ...state,
-        appointments
-      });
-    })
-    .catch(error => {
-      throw Error;
-    });
-}
-
-function cancelInterview(id){
-  const appointment = {
-    ...state.appointments[id],
-    interview: null
-  };
-
-  const appointments = {
-    ...state.appointments,
-    [id]: appointment
-  };
-
-  return axios
-  .delete(`/api/appointments/${id}`) 
-  .then(() => {
-    setState({
-      ...state,
-      appointments
-    });
-  })
-  .catch(error => {
-    throw Error;
-  });
-}
-  
-
-  const setDay = (day) => {
-    setState(prev => ({ ...prev, day }));
-  };
-
-
-  // hook to fetch data from the server
-  useEffect(() => {
-    Promise.all([
-      axios.get('/api/days'), // Make the GET request to your API server
-      axios.get('/api/appointments'),
-      axios.get('/api/interviewers')
-    ])
-    .then((all) => {
-      const [daysResponse, appointmentsResponse,  interviewersResponse] = all; // Destructure the responses
-      setState(prev => ({
-        ...prev,
-        days: daysResponse.data, // Access the response data for days
-        appointments: appointmentsResponse.data, // Access the response data for appointments
-        interviewers: interviewersResponse.data
-      }));
-    }).catch(error => {
-      console.log(error);
-    });
-  }, []);
-
-
-const appointments = getAppointmentsForDay(state, state.day); // Get appointments for the selected day
-const interviewers = getInterviewersForDay(state, state.day);
-
-  const schedule = appointments.map((appointment) => {
-    const interview = getInterview(state, appointment.interview);
-
-    return (
-      <Appointment
-        key={appointment.id}
-        id={appointment.id}
-        time={appointment.time}
-        interview={interview}
-        interviewers={interviewers}
-        bookInterview={bookInterview}
-        cancelInterview={cancelInterview}
-      />
-    );
-  });
+  const appointments = getAppointmentsForDay(state, state.day).map(
+    (appointment) => {
+      return (
+        <Appointment
+          key={appointment.id}
+          {...appointment}
+          interview={getInterview(state, appointment.interview)}
+          interviewers={interviewers}
+          bookInterview={bookInterview}
+          cancelInterview={cancelInterview}
+        />
+      );
+    }
+  );
 
   return (
     <main className="layout">
@@ -125,11 +41,7 @@ const interviewers = getInterviewersForDay(state, state.day);
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-          <DayList
-            days={state.days}
-            value={state.day}
-            onChange={setDay}
-          />
+          <DayList days={state.days} value={state.day} onChange={setDay} />
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"
@@ -138,8 +50,7 @@ const interviewers = getInterviewersForDay(state, state.day);
         />
       </section>
       <section className="schedule">
-        
-          {schedule}
+        {appointments}
         <Appointment key="last" time="5pm" />
       </section>
     </main>

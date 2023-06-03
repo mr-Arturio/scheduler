@@ -10,28 +10,22 @@ import Confirm from "./Confirm";
 import Error from "./Error";
 import useVisualMode from "hooks/useVisualMode";
 
-export default function Appointment(props) {
-  const EMPTY = "EMPTY";
-  const SHOW = "SHOW";
-  const CREATE = "CREATE";
-  const SAVING = "SAVING";
-  const DELETING = "DELETING";
-  const CONFIRM = "CONFIRM";
-  const EDIT = "EDIT";
-  const ERROR_SAVE = "ERROR_SAVE";
-  const ERROR_DELETE = "ERROR_DELETE";
+const EMPTY = "EMPTY";
+const SHOW = "SHOW";
+const CREATE = "CREATE";
+const SAVING = "SAVING";
+const DELETING = "DELETING";
+const CONFIRM = "CONFIRM";
+const EDIT = "EDIT";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
+export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
 
   function save(name, interviewer) {
-
-    if (!name || !interviewer) {
-      transition(ERROR_SAVE, true);
-      return;
-    }
-
     const interview = {
       student: name,
       interviewer,
@@ -95,9 +89,8 @@ export default function Appointment(props) {
           interviewers={props.interviewers}
           onSave={save}
           onCancel={() => back()}
-          onDelete={cancelInterview}
           name={props.interview.student} // Pass the current student name as a prop for editing
-          interviewer={props.interview.interviewer} // Pass the current interviewer as a prop for editing
+          interviewer={props.interview ? props.interview.interviewer.id : null} // Pass the current interviewer as a prop for editing
         />
       )}
       {mode === SAVING && <Status message={"SAVING"}></Status>}
@@ -112,9 +105,7 @@ export default function Appointment(props) {
         />
       )}
       {mode === ERROR_DELETE && (
-        <Error 
-        message={"Error deleting appointment."} 
-        onClose={back} />
+        <Error message={"Error deleting appointment."} onClose={back} />
       )}
     </article>
   );
