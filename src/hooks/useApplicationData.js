@@ -13,7 +13,25 @@ export default function useApplicationData() {
     setState(prev => ({ ...prev, day }));
   };
 
-  const updateSpots = (appointmentId, isBooking) => {
+
+  // const updateSpots = (day, appointments) => {
+  //   setState((prev) => {
+  //     const days = prev.days.map((d) => {
+  //       if (d.name === day) {
+  //         const spots = d.appointments.reduce(
+  //           (count, id) => (!appointments[id].interview ? count + 1 : count),
+  //           0
+  //         );
+  //         return { ...d, spots };
+  //       }
+  //       return d;
+  //     });
+  
+  //     return { ...prev, days };
+  //   });
+  // };
+
+  const updateSpots = (appointmentId) => {
     setState((prev) => {
       // Find the day object that includes the given appointmentId
       const day = prev.days.find((d) => d.appointments.includes(appointmentId));
