@@ -5,7 +5,7 @@ import InterviewerList from "components/InterviewerList";
 export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || "");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
 
   function reset() {
     setStudent("");
@@ -18,12 +18,16 @@ export default function Form(props) {
     props.onCancel();
   }
 
-  function onSave() {
-    if (student.trim() === "" || !interviewer) {
-      setError(true);
-    } else {
-      props.onSave(student, interviewer);
+  function validate() {
+    if (student === "") {
+      setError("Student name cannot be blank");
+      return;
     }
+    if (!interviewer) {
+      setError("Please select an interviewer");
+      return;
+    }
+    props.onSave(student, interviewer);
   }
 
   return (
@@ -37,6 +41,7 @@ export default function Form(props) {
             placeholder="Enter Student Name"
             value={student}
             onChange={(event) => setStudent(event.target.value)}
+            data-testid="student-name-input"
           />
         </form>
         <InterviewerList
@@ -50,15 +55,16 @@ export default function Form(props) {
           <Button danger onClick={cancel}>
             Cancel
           </Button>
-          <Button confirm onClick={onSave}>
+          <Button confirm onClick={validate}>
             Save
           </Button>
         </section>
       </section>
-      {error && 
-      <p className="appointment__validation">
-        Name and interviewer selection are required.
-        </p>}
+      {error && (
+        <p className="appointment__validation">
+          {error}
+        </p>
+      )}
     </main>
   );
 }
