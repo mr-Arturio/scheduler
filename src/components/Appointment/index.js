@@ -100,7 +100,7 @@ export default function Appointment(props) {
       )}
       {mode === ERROR_SAVE && (
         <Error
-          message={"Name and interviewer selection are required."}
+          message={"Error saving the appointment."}
           onClose={back}
         />
       )}
