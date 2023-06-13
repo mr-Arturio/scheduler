@@ -50,3 +50,22 @@ test("useVisualMode should replace the current mode", () => {
   act(() => result.current.back());
   expect(result.current.mode).toBe(FIRST);
 });
+
+test("useVisualMode should go back to previous mode", () => {
+  const { result } = renderHook(() => useVisualMode(FIRST));
+
+  act(() => result.current.transition(SECOND));
+  expect(result.current.mode).toBe(SECOND);
+
+  act(() => result.current.transition(THIRD));
+  expect(result.current.mode).toBe(THIRD);
+
+  act(() => result.current.back());
+  expect(result.current.mode).toBe(SECOND);
+
+  act(() => result.current.back());
+  expect(result.current.mode).toBe(FIRST);
+
+  act(() => result.current.back());
+  expect(result.current.mode).toBe(FIRST); // Additional check to ensure back() doesn't go beyond the initial mode
+});

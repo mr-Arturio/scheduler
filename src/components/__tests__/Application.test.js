@@ -13,9 +13,7 @@ import {
   getByPlaceholderText,
   queryByText,
   queryByAltText,
-  waitFor,
-  prettyDOM,
-} from "@testing-library/react";
+ } from "@testing-library/react";
 
 
 import Application from "components/Application";
