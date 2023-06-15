@@ -1,17 +1,17 @@
 //Import dependencies and components
-import React from "react";
-import DayList from "./DayList";
-import "components/Application.scss";
-import Appointment from "./Appointment";
+import React from 'react';
+import DayList from './DayList';
+import 'components/Application.scss';
+import Appointment from './Appointment';
 import {
   getAppointmentsForDay,
   getInterview,
   getInterviewersForDay,
-} from "helpers/selectors";
-import useApplicationData from "hooks/useApplicationData";
+} from 'helpers/selectors';
+import useApplicationData from 'hooks/useApplicationData';
 
 export default function Application(props) {
-   const { state, setDay, bookInterview, cancelInterview } =
+  const { state, setDay, bookInterview, cancelInterview } =
     useApplicationData();
 
   const interviewers = getInterviewersForDay(state, state.day);
@@ -28,7 +28,7 @@ export default function Application(props) {
           cancelInterview={cancelInterview}
         />
       );
-    }
+    },
   );
 
   return (

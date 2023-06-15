@@ -1,28 +1,28 @@
-import React from "react";
-import "components/Appointment/styles.scss";
+import React from 'react';
+import 'components/Appointment/styles.scss';
 
-import Header from "./Header";
-import Empty from "./Empty";
-import Show from "./Show";
-import Form from "./Form";
-import Status from "./Status";
-import Confirm from "./Confirm";
-import Error from "./Error";
-import useVisualMode from "hooks/useVisualMode";
+import Header from './Header';
+import Empty from './Empty';
+import Show from './Show';
+import Form from './Form';
+import Status from './Status';
+import Confirm from './Confirm';
+import Error from './Error';
+import useVisualMode from 'hooks/useVisualMode';
 
-const EMPTY = "EMPTY";
-const SHOW = "SHOW";
-const CREATE = "CREATE";
-const SAVING = "SAVING";
-const DELETING = "DELETING";
-const CONFIRM = "CONFIRM";
-const EDIT = "EDIT";
-const ERROR_SAVE = "ERROR_SAVE";
-const ERROR_DELETE = "ERROR_DELETE";
+const EMPTY = 'EMPTY';
+const SHOW = 'SHOW';
+const CREATE = 'CREATE';
+const SAVING = 'SAVING';
+const DELETING = 'DELETING';
+const CONFIRM = 'CONFIRM';
+const EDIT = 'EDIT';
+const ERROR_SAVE = 'ERROR_SAVE';
+const ERROR_DELETE = 'ERROR_DELETE';
 
 export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
-    props.interview ? SHOW : EMPTY
+    props.interview ? SHOW : EMPTY,
   );
 
   function save(name, interviewer) {
@@ -93,19 +93,16 @@ export default function Appointment(props) {
           interviewer={props.interview ? props.interview.interviewer.id : null} // Pass the current interviewer as a prop for editing
         />
       )}
-      {mode === SAVING && <Status message={"SAVING"}></Status>}
-      {mode === DELETING && <Status message={"DELETING"}></Status>}
+      {mode === SAVING && <Status message={'SAVING'}></Status>}
+      {mode === DELETING && <Status message={'DELETING'}></Status>}
       {mode === CONFIRM && (
         <Confirm onCancel={back} onConfirm={cancelInterview} />
       )}
       {mode === ERROR_SAVE && (
-        <Error
-          message={"Error saving the appointment."}
-          onClose={back}
-        />
+        <Error message={'Error saving the appointment.'} onClose={back} />
       )}
       {mode === ERROR_DELETE && (
-        <Error message={"Error deleting appointment."} onClose={back} />
+        <Error message={'Error deleting appointment.'} onClose={back} />
       )}
     </article>
   );

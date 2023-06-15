@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import Button from "components/Button";
-import InterviewerList from "components/InterviewerList";
+import React, { useState } from 'react';
+import Button from 'components/Button';
+import InterviewerList from 'components/InterviewerList';
 
 export default function Form(props) {
-  const [student, setStudent] = useState(props.student || "");
-  const [interviewer, setInterviewer] = useState(props.interviewer || "");
+  const [student, setStudent] = useState(props.student || '');
+  const [interviewer, setInterviewer] = useState(props.interviewer || '');
   const [error, setError] = useState('');
 
   function reset() {
-    setStudent("");
-    setInterviewer("");
+    setStudent('');
+    setInterviewer('');
     setError(false);
   }
 
@@ -19,15 +19,15 @@ export default function Form(props) {
   }
 
   function validate() {
-    if (student === "") {
-      setError("Student name cannot be blank");
+    if (student === '') {
+      setError('Student name cannot be blank');
       return;
     }
     if (!interviewer) {
-      setError("Please select an interviewer");
+      setError('Please select an interviewer');
       return;
     }
-    setError("");
+    setError('');
     props.onSave(student, interviewer);
   }
 
@@ -61,11 +61,7 @@ export default function Form(props) {
           </Button>
         </section>
       </section>
-      {error && (
-        <p className="appointment__validation">
-          {error}
-        </p>
-      )}
+      {error && <p className="appointment__validation">{error}</p>}
     </main>
   );
 }

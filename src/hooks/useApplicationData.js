@@ -10,26 +10,8 @@ export default function useApplicationData() {
   });
 
   const setDay = (day) => {
-    setState(prev => ({ ...prev, day }));
+    setState((prev) => ({ ...prev, day }));
   };
-
-
-  // const updateSpots = (day, appointments) => {
-  //   setState((prev) => {
-  //     const days = prev.days.map((d) => {
-  //       if (d.name === day) {
-  //         const spots = d.appointments.reduce(
-  //           (count, id) => (!appointments[id].interview ? count + 1 : count),
-  //           0
-  //         );
-  //         return { ...d, spots };
-  //       }
-  //       return d;
-  //     });
-  
-  //     return { ...prev, days };
-  //   });
-  // };
 
   const updateSpots = (appointmentId) => {
     setState((prev) => {
@@ -40,13 +22,17 @@ export default function useApplicationData() {
       const appointments = day.appointments.map((id) => prev.appointments[id]);
 
       // Count the number of appointments with null interviews
-      const spots = appointments.filter((appointment) => prev.appointments[appointment.id].interview === null).length;
+      const spots = appointments.filter(
+        (appointment) => prev.appointments[appointment.id].interview === null,
+      ).length;
 
       // Create a new day object with the updated spots value
       const updatedDay = { ...day, spots };
 
       // Create a new array of days with the updatedDay object
-      const updatedDays = prev.days.map((d) => (d.id === updatedDay.id ? updatedDay : d));
+      const updatedDays = prev.days.map((d) =>
+        d.id === updatedDay.id ? updatedDay : d,
+      );
 
       // Return the updated state with the updatedDays array
       return { ...prev, days: updatedDays };
@@ -108,18 +94,18 @@ export default function useApplicationData() {
     Promise.all([
       axios.get('/api/days'), // Make the GET request to your API server
       axios.get('/api/appointments'),
-      axios.get('/api/interviewers')
+      axios.get('/api/interviewers'),
     ])
       .then(([daysResponse, appointmentsResponse, interviewersResponse]) => {
         // Destructure the responses
-        setState(prev => ({
+        setState((prev) => ({
           ...prev,
           days: daysResponse.data, // Access the response data for days
           appointments: appointmentsResponse.data, // Access the response data for appointments
-          interviewers: interviewersResponse.data
+          interviewers: interviewersResponse.data,
         }));
       })
-      .catch(error => {
+      .catch((error) => {
         throw error;
       });
   }, []);

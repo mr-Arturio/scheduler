@@ -5,7 +5,8 @@ export default function useVisualMode(initial) {
   const [history, setHistory] = useState([initial]); //history state maintains a record of all previous modes.
 
   //The transition function updates the mode and history states
-  function transition(newMode, replace = false) { //replace parameter determines whether to replace the current mode in the history.
+  function transition(newMode, replace = false) {
+    //replace parameter determines whether to replace the current mode in the history.
     //update the mode state with the new mode value.
     setMode(newMode);
     //takes the previous history as a parameter and returns the new history.
@@ -19,15 +20,14 @@ export default function useVisualMode(initial) {
         return [...newHistory, newMode];
       }
       //If replace is false, add the new mode to the existing history array and returns the updated history.
-      return [...prevHistory, newMode]
+      return [...prevHistory, newMode];
     });
-  };
+  }
 
   // to go back to the previous mode in the history
   function back() {
     //check the length
     if (history.length > 1) {
-
       setHistory((prevHistory) => {
         //create a copy of the previous history array using the spread
         const newHistory = [...prevHistory];
@@ -40,11 +40,8 @@ export default function useVisualMode(initial) {
 
         return newHistory;
       });
-
     }
-
   }
   // Returning the Hook's Values:
   return { mode, transition, back };
 }
-

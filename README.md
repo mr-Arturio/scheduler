@@ -23,7 +23,7 @@ ___
 
 ## Testing practice
 
-In this project we also practice testing using [Jest](https://jestjs.io/) and [Cypress](https://www.cypress.io/) 
+In this project, we also practice testing using [Jest](https://jestjs.io/) and [Cypress](https://www.cypress.io/) 
 
 Test coverage
 ![Test coverage](./docs/test_coverage.png)
