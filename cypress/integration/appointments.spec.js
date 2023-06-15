@@ -53,7 +53,23 @@ cy.contains(".appointment__card--show", "Lydia Miller-Jones");
     cy.get(".appointment__card--show").should("contain", "Artur");
 cy.contains(".appointment__card--show", "Tori Malcolm");
   })
-  
-    
- 
+
+  it("should cancel an interview", () => {
+
+    //2. Clicks the delete button for the existing appointment
+    cy.get("[alt=Delete]")
+     .click({ force: true });
+
+    //3. Clicks the confirm button
+    cy.contains("Confirm").click();
+
+    //4. Check that the "Deleting" indicator should exist, and after not
+    cy.contains("DELETING").should("exist");
+  cy.contains("DELETING").should("not.exist");
+
+    //5. Sees that the appointment slot is empty
+    cy.contains(".appointment__card--show", "Archie Cohen")
+    .should("not.exist");
+  })
+      
 });
