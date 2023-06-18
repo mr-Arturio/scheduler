@@ -80,7 +80,7 @@ export default function Appointment(props) {
         <Form
           interviewers={props.interviewers}
           onSave={save}
-          onCancel={() => back()}
+          onCancel={back}
           onDelete={cancelInterview}
         />
       )}
@@ -88,7 +88,7 @@ export default function Appointment(props) {
         <Form
           interviewers={props.interviewers}
           onSave={save}
-          onCancel={() => back()}
+          oonCancel={back}
           name={props.interview.student} // Pass the current student name as a prop for editing
           interviewer={props.interview ? props.interview.interviewer.id : null} // Pass the current interviewer as a prop for editing
         />
