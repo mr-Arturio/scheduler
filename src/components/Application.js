@@ -24,8 +24,8 @@ export default function Application(props) {
           {...appointment}
           interview={getInterview(state, appointment.interview)}
           interviewers={interviewers}
-          bookInterview={bookInterview}
-          cancelInterview={cancelInterview}
+          // bookInterview={bookInterview}
+          // cancelInterview={cancelInterview}
         />
       );
     },
