@@ -28,12 +28,12 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-          - "17:b1:fe:bd:00:20:a2:6a:86:a9:14:16:87:a1:77:18"
-    - checkout
-    - run:
-        name: Push Master to Production
-        command: |
-          git push https://github.com/mr-Arturio/scheduler.git master:production
+            - "17:b1:fe:bd:00:20:a2:6a:86:a9:14:16:87:a1:77:18"
+      - checkout
+      - run:
+          name: Push Master to Production
+          command: |
+            git push https://github.com/mr-Arturio/scheduler.git master:production
 
 workflows:
   version: 2
