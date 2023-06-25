@@ -3,6 +3,11 @@
 Welcome to Interview Scheduler! This project is a single-page application (SPA) built with React that allows users to book and cancel interviews. The application provides a real-time experience by combining a concise API with a WebSocket server.
 This project was build as a part of [Lighthouse Labs.](https://www.lighthouselabs.ca/) educational program
 
+The project deployed at the address [scheduler-api-production-1262.up.railway.app](scheduler-api-production-1262.up.railway.app) using:
+1.  [Railway](https://railway.app/) - a service that simplifies the deployment process for web applications and takes care of the server configuration process.
+2.  [CircleCI](https://circleci.com/) - manage our continuous integration process. We have connected CircleCI to GitHub so that it can listen for changes to the master branch. We update the keys to ensure that CircleCI can also trigger an automatic deploy to the production branch.
+3.  [Netlify](https://www.netlify.com/) -  configured Netlify to watch the origin production branch and deploy the site automatically.
+
 ## Project Description
 Interview Scheduler is designed to facilitate technical interviews between students and mentors. Users can book appointments between 12 PM and 5 PM, Monday to Friday. Each appointment consists of one student and one interviewer. When creating a new appointment, the user can enter any student name, while the interviewer is selected from a predefined list. The application allows users to save appointments, view the entire schedule on any given day, edit existing appointments, and delete appointments.
 
